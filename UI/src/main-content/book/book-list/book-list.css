@@ -1,0 +1,30 @@
+.book{
+    height: 7rem;
+    border: 1px solid maroon;
+    margin: 10px;
+    transition: 250ms all;
+    border-radius: 7px;
+}
+
+.book:hover{
+    background-color: yellowgreen;
+    border-radius: 10px;
+}
+
+.img-container{
+    background-color: rgb(29, 28, 28);
+    display: flex;
+    align-items: center;
+}
+
+.book-image{
+    border-radius: 25px;
+    width: 7rem;
+    height: 95%;
+}
+
+.book-buttons{
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}

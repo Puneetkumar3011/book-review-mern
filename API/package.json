@@ -1,0 +1,23 @@
+{
+  "name": "my-books-api",
+  "version": "1.0.0",
+  "description": "API for books application",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Puneet Singh",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "express-validator": "^5.3.0",
+    "jsonwebtoken": "^8.4.0",
+    "mongoose": "^5.3.12",
+    "multer": "^1.4.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.6"
+  }
+}
