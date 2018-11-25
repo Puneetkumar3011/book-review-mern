@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { Route } from "react-router";
 import Booklist from "./book/book-list/book-list";
-import BookInput from "./book/book-input/book-input";
-import BookEdit from "./book/book-edit/book-edit";
+import BookInput from "./book/book-form/book-input";
+import BookEdit from "./book/book-form/book-edit";
 
 
 class MainContent extends Component {

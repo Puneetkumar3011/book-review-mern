@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import TextInputGroup from "../../../layout/TextInputGroup";
+import TextInputGroup from "../../../shared/UI/TextInputGroup";
 
 class BookForm extends Component {
     constructor(props){
