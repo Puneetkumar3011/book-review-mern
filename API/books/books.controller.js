@@ -140,7 +140,7 @@ exports.deleteBook = (req, res, next) => {
       })
       .then(result => {
         console.log(result);
-        res.status(200).json({ message: 'Deleted book.' });
+        res.status(200).json({ message: 'Deleted book.', bookId: bookId });
       })
       .catch(err => {
         if (!err.statusCode) {

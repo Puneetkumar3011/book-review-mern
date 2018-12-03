@@ -21,13 +21,11 @@ class BookForm extends Component {
         if(this.state.imageUrl){
             this.displayImageLink = `${API_BASE_URL}/${props.book.imageUrl}`;
         }
-        this.onFileChange = this.onFileChange.bind(this);
     }
 
     onChange = e => this.setState({ [e.target.name]: e.target.value });
 
     onFileChange = e => {
-        debugger;
         this.displayImageLink = URL.createObjectURL(e.target.files[0]);
         this.setState({
             file: e.target.files[0]
@@ -96,7 +94,7 @@ class BookForm extends Component {
                                 <input type="file" className="form-control-file" name="file" onChange={this.onFileChange} />
                             </div>
                             <div>
-                                {this.state.imageUrl
+                                {this.displayImageLink
                                     ? <img className="book-form__img" alt=""
                                     src={this.displayImageLink}></img>
                                     : null
