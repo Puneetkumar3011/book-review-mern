@@ -14,7 +14,11 @@ const bookSchema = new Schema(
             type: String,
             required: false
         },
-        desription: {
+        file: {
+            type: Object,
+            required: false
+        },
+        description: {
             type: String,
             required: true
         },

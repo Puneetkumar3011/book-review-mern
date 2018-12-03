@@ -3,19 +3,22 @@ import 'font-awesome/css/font-awesome.min.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { createStore, applyMiddleware, compose } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import { BrowserRouter } from 'react-router-dom'
 import { Route } from 'react-router';
+import { composeWithDevTools } from 'redux-devtools-extension';
 
 import App from './App';
 import reducers from './store/reducers';
 import './index.css';
 
-const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
+const store = createStore(reducers, composeWithDevTools(
+    applyMiddleware(thunk)
+  ));
 
 ReactDOM.render(
-    <Provider store={createStoreWithMiddleware(reducers)}>
+    <Provider store={store}>
         <BrowserRouter>
             <div>
                 <Route path='/' component={App} >

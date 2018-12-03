@@ -7,13 +7,15 @@ import BookForm from "../book-form/book-form";
 class BookInput extends Component {
 
     onSubmit = (formData) => {
-        this.props.onBookAdd(formData);
+        this.props.onBookAdd(formData).then(() => {
+            this.props.history.push("/book/list");
+        });
     }
 
     render() {
         return (
-            <div className="card mb-3">
-                <BookForm submitBook={this.onSubmit}></BookForm>;
+            <div>
+                <BookForm submitBook={this.onSubmit}></BookForm>
             </div>
         );
     }

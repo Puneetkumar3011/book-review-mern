@@ -2,22 +2,33 @@ import React, { Component } from "react";
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import { fetchBooks } from "../../../store/book/actions";
+import { getBooks, deleteBook } from "../../../store/book/actions";
 import { API_BASE_URL } from '../../../shared/app.constants';
 
 import "./book-list.css";
 
 class BookList extends Component {
-    componentDidMount() {
-        this.props.fetchBooks();
+    componentWillMount() {
+        this.props.getBooks();
+    }
+
+    onDeleteBook = (book) => {
+        this.props.onDeleteBook(book).then(() => {
+            this.props.history.push("/");
+        });
     }
 
     renderBooks() {
+        if(!this.props.books){
+            return (
+                <div>No Book to display</div>
+            );
+        }
         return this.props.books.map((book) => {
             return (
                 <div key={book.id} className="row book">
                     <div className="col-md-2 img-container">
-                        <img className="book-image" src={API_BASE_URL + '/' + book.imageUrl}></img>
+                        <img className="book-image" alt="" src={API_BASE_URL + '/' + book.imageUrl}></img>
                     </div>
                     <div className="col-md-6">
                         <div className="float-left">
@@ -29,7 +40,7 @@ class BookList extends Component {
                                 <span>{book.author}</span>
                             </div>
                             <div>
-                                {book.desription}
+                                {book.description}
                             </div>
                         </div>
                     </div>
@@ -38,12 +49,11 @@ class BookList extends Component {
                             <Link to={"/book/edit/" + book.id } className="btn btn-default">
                                 <i className="fa fa-pencil"></i>
                             </Link>
-                            <Link to="/book/delete" className="btn btn-default">
+                            <a onClick={() => this.onDeleteBook(book)} className="btn btn-default">
                                 <i className="fa fa-trash-o"></i>
-                            </Link>
+                            </a>
                         </div>
                     </div>
-
                 </div>
             );
         });
@@ -71,4 +81,11 @@ const mapStateToProps = (state, ownProps) => {
     }
 }
 
-export default connect(mapStateToProps, { fetchBooks })(BookList);
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onDeleteBook: (book) => dispatch(deleteBook(book)),
+        getBooks: () => dispatch(getBooks())
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(BookList);

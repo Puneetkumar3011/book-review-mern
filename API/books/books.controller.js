@@ -22,7 +22,7 @@ exports.getBooks = (req, res, next) => {
             res.status(200)
                 .json({
                     message: 'Fetched books successfully.',
-                    books: mappings.mapDbToBooks(books),
+                    books: mappings. mapDbToBooks(books),
                     totalItems: totalItems
                 });
         })
@@ -65,7 +65,7 @@ exports.createBook = (req, res, next) => {
     }
     const book = new Book({
         title: req.body.title,
-        desription: req.body.desription,
+        description: req.body.description,
         imageUrl: req.file.path,
         author: req.body.author,
         price: req.body.price,
@@ -75,7 +75,7 @@ exports.createBook = (req, res, next) => {
         .then(result => {
             res.status(201).json({
                 message: 'Book created successfully!',
-                book: result
+                book: mappings.mapDbToBook(result)
             });
         })
         .catch(err => {
@@ -108,14 +108,14 @@ exports.updateBook = (req, res, next) => {
                 clearImage(book.imageUrl);
             }
             book.title = req.body.title;
-            book.desription = req.body.desription;
+            book.description = req.body.description;
             book.imageUrl = imageUrl;
             book.author = req.body.author;
             book.price = req.body.price;
             return book.save();
         })
         .then(result => {
-            res.status(200).json({ message: 'Book updated!', book: result });
+            res.status(200).json({ message: 'Book updated!', book: mappings.mapDbToBook(result) });
         })
         .catch(err => {
             if (!err.statusCode) {
@@ -124,6 +124,31 @@ exports.updateBook = (req, res, next) => {
             next(err);
         });
 };
+
+exports.deleteBook = (req, res, next) => {
+    const bookId = req.params.bookId;
+    Book.findById(bookId)
+      .then(book => {
+        if (!book) {
+          const error = new Error('Could not find book.');
+          error.statusCode = 404;
+          throw error;
+        }
+        // Check logged in user
+        clearImage(book.imageUrl);
+        return Book.findByIdAndRemove(bookId);
+      })
+      .then(result => {
+        console.log(result);
+        res.status(200).json({ message: 'Deleted book.' });
+      })
+      .catch(err => {
+        if (!err.statusCode) {
+          err.statusCode = 500;
+        }
+        next(err);
+      });
+  };
 
 const clearImage = filePath => {
     filePath = path.join(__dirname, '..', filePath);

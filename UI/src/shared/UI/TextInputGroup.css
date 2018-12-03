@@ -1,0 +1,7 @@
+.input-label{
+    display: inline-block;
+    margin-bottom: .5rem;
+    width: 100%;
+    text-align: left;
+    font-weight: 700;
+}

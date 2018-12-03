@@ -16,7 +16,7 @@ fromDbToModelBook = (dbBook) => {
     let bookModel = {};
     bookModel.id = dbBook._id;
     bookModel.title = dbBook.title;
-    bookModel.desription = dbBook.desription;
+    bookModel.description = dbBook.description;
     bookModel.imageUrl = dbBook.imageUrl;
     bookModel.author = dbBook.author;
     bookModel.price = dbBook.price;

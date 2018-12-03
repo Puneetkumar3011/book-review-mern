@@ -1,0 +1,19 @@
+.book-form-main{
+    margin: 5px;
+    background-color: rgb(253, 252, 252);
+}
+
+.book-form__img{
+    width: 100%;
+    height: 50vh;
+}
+
+.input-field-div{
+    border-right: 1px solid black;
+}
+
+.btn-div{
+    margin-top: 5px;
+    display: flex;
+    justify-content: flex-end;
+}

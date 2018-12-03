@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 
-import { updateBook, fetchBook } from "../../../store/book/actions";
+import { updateBook, getBook } from "../../../store/book/actions";
 import BookForm from "../book-form/book-form";
 
 class BookEdit extends Component {
@@ -9,12 +9,14 @@ class BookEdit extends Component {
     componentDidMount() {
         this.bookId = this.props.match.params.id;
         if (this.bookId) {
-            this.props.onFetchBook(this.bookId);
+            this.props.onGetBook(this.bookId);
         }
     }
 
     onSubmit = (formData) => {
-        this.props.onBookEdit(formData, this.bookId);
+        this.props.onBookEdit(formData, this.bookId).then(() => {
+            this.props.history.push("/book/list");
+        });
     }
 
     render() {
@@ -23,7 +25,7 @@ class BookEdit extends Component {
             compToDisplay = <BookForm submitBook={this.onSubmit} book={this.props.bookEdit}></BookForm>;
         }
         return (
-            <div className="card mb-3">
+            <div>
                 {compToDisplay}
             </div>
         );
@@ -36,11 +38,11 @@ const mapStateToProps = (state) => {
     };
 }
 
-const mapEventsToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch) => {
     return {
-        onFetchBook: (id) => dispatch(fetchBook(id)),
+        onGetBook: (id) => dispatch(getBook(id)),
         onBookEdit: (book, id) => dispatch(updateBook(book, id))
     };
 }
 
-export default connect(mapStateToProps, mapEventsToProps)(BookEdit);
+export default connect(mapStateToProps, mapDispatchToProps)(BookEdit);
