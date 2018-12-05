@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { Modal, Button } from 'react-bootstrap';
 
 import { getBooks, deleteBook } from "../../../store/book/actions";
 import { API_BASE_URL } from '../../../shared/app.constants';
@@ -8,18 +9,43 @@ import { API_BASE_URL } from '../../../shared/app.constants';
 import "./book-list.css";
 
 class BookList extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            bookToDelete: null,
+            isDeleteBook: false
+        };
+    }
     componentWillMount() {
         this.props.getBooks();
     }
 
-    onDeleteBook = (book) => {
-        this.props.onDeleteBook(book).then(() => {
-            this.props.history.push("/");
+    onDeleteBook = () => {
+        debugger;
+        this.props.onDeleteBook(this.state.bookToDelete).then(() => {
+            this.setState({
+                isDeleteBook: false,
+                bookToDelete: null
+            });
+        });
+    }
+
+    onOpenPopup = (book) => {
+        this.setState({
+            isDeleteBook: true,
+            bookToDelete: book
+        });
+    }
+
+    onClosePopup = () => {
+        this.setState({
+            isDeleteBook: false,
+            bookToDelete: null
         });
     }
 
     renderBooks() {
-        if(!this.props.books){
+        if (!this.props.books) {
             return (
                 <div>No Book to display</div>
             );
@@ -46,10 +72,10 @@ class BookList extends Component {
                     </div>
                     <div className="col-md-4 book-buttons">
                         <div>
-                            <Link to={"/book/edit/" + book.id } className="btn btn-default">
+                            <Link to={"/book/edit/" + book.id} className="btn btn-default">
                                 <i className="fa fa-pencil"></i>
                             </Link>
-                            <a onClick={() => this.onDeleteBook(book)} className="btn btn-default">
+                            <a onClick={() => this.onOpenPopup(book)} className="btn btn-default">
                                 <i className="fa fa-trash-o"></i>
                             </a>
                         </div>
@@ -59,11 +85,31 @@ class BookList extends Component {
         });
     }
 
+    deleteConfirmation() {
+        return (
+            <div>
+                <Modal show={this.state.isDeleteBook} bsSize="small"
+                    aria-labelledby="contained-modal-title-sm">
+                    <Modal.Body>
+                        <h4>Confirm to delete book.</h4>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button onClick={() => this.onClosePopup()}>Close</Button>
+                        <Button onClick={() => this.onDeleteBook()} bsStyle="primary">Delete</Button>
+                    </Modal.Footer>
+                </Modal>
+            </div>
+        );
+    }
+
     render() {
         return (
             <div>
                 <div>
                     {this.renderBooks()}
+                </div>
+                <div>
+                    {this.deleteConfirmation()}
                 </div>
                 <div className="text-right">
                     <Link to="/book/add-book" className="btn btn-primary">

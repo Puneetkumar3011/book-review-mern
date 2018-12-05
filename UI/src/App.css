@@ -9,7 +9,7 @@
 
 .App-header {
   background-color: #282c34;
-  height: 2rem;
+  height: 3rem;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -24,7 +24,16 @@
 }
 
 .favorites-books{
+  border-right: 1px solid grey;
+  min-height: calc(100vh - 2rem);
   background-color: beige;
+}
+
+.modal-container {
+  position: relative;
+}
+.modal-container .modal, .modal-container .modal-backdrop {
+  position: absolute;
 }
 
 .App-link {

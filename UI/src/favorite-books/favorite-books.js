@@ -2,11 +2,12 @@ import React, { Component } from "react";
 import "./favorite-books.css";
 
 class RightPanel extends Component {
-    render() {
-        return (
+    render(){
+        return(
             <div>
-                Favorite Books
-        </div>);
+                favorite Books
+            </div>
+        )
     }
 }
 

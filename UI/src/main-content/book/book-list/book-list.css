@@ -15,16 +15,15 @@
     background-color: rgb(29, 28, 28);
     display: flex;
     align-items: center;
+    height: 100%;
 }
 
 .book-image{
     border-radius: 25px;
-    width: 7rem;
+    width: 11rem;
     height: 95%;
 }
 
 .book-buttons{
-    display: flex;
-    align-items: center;
-    justify-content: end;
+    top: 25%;
 }

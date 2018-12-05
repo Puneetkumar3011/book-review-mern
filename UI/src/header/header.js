@@ -8,7 +8,7 @@ class AppHeader extends Component {
             <div>
                 <div className="row App-header">
                     <header className="col-5 header-text">
-                        Book Management
+                        <span> Book Management </span>
                     </header>
                     <ul className="col-7">
                         <li>
