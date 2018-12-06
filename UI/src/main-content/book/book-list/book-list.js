@@ -62,6 +62,10 @@ class BookList extends Component {
                                 {book.title}
                             </strong>
                             <div>
+                                <span>Price:&nbsp;</span>
+                                <span className="display-price">{book.price}</span>
+                            </div>
+                            <div>
                                 <span>Author:&nbsp;</span>
                                 <span>{book.author}</span>
                             </div>
@@ -72,10 +76,10 @@ class BookList extends Component {
                     </div>
                     <div className="col-md-4 book-buttons">
                         <div>
-                            <Link to={"/book/edit/" + book.id} className="btn btn-default">
+                            <Link to={"/book/edit/" + book.id} className="btn btn-default link-display">
                                 <i className="fa fa-pencil"></i>
                             </Link>
-                            <a onClick={() => this.onOpenPopup(book)} className="btn btn-default">
+                            <a onClick={() => this.onOpenPopup(book)} className="btn btn-default link-display">
                                 <i className="fa fa-trash-o"></i>
                             </a>
                         </div>

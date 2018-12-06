@@ -1,5 +1,5 @@
 .book{
-    height: 7rem;
+    height: 8rem;
     border: 1px solid maroon;
     margin: 10px;
     transition: 250ms all;
@@ -26,4 +26,14 @@
 
 .book-buttons{
     top: 25%;
+}
+
+.display-price{
+    color: green;
+    font-weight: 700;
+}
+
+.link-display{
+    width: 50px;
+    margin: 0 10px;
 }
