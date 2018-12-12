@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import classnames from 'classnames';
 
 import "./book-form.css"
 import TextInputGroup from "../../../shared/UI/TextInputGroup";
@@ -44,19 +45,22 @@ class BookForm extends Component {
                 },
                 isValid: true
             },
-            imageUrl: {
-                value: (props.book ? props.book.imageUrl : '')
+            file: {
+                file: null,
+                value: (props.book ? props.book.imageUrl : ''),
+                validations: {
+                    required: true
+                },
+                isValid: true
             },
-            file: null,
             isFormValid: true
         };
-        if (this.state.imageUrl && this.state.imageUrl.value) {
-            this.displayImageLink = `${API_BASE_URL}/${this.state.imageUrl.value}`;
+        if (this.state.file.value) {
+            this.displayImageLink = `${API_BASE_URL}/${this.state.file.value}`;
         }
     }
 
     onChange = e => {
-        debugger;
         const name = e.target.name;
         const value = e.target.value;
         let newObj = { ...this.state[name] };
@@ -70,7 +74,7 @@ class BookForm extends Component {
         let validations = this.state[name].validations;
 
         if (validations && validations.required) {
-            isValid = (value.trim() !== "" && isValid);
+            isValid = (value && value.trim() !== "" && isValid);
         }
 
         this.setState(prevState => ({
@@ -85,14 +89,20 @@ class BookForm extends Component {
 
     onFileChange = e => {
         this.displayImageLink = URL.createObjectURL(e.target.files[0]);
+        let fileObj = {...this.state.file};
+        fileObj.file = e.target.files[0];
+        fileObj.value = fileObj.value || fileObj.file.name;
         this.setState({
-            file: e.target.files[0]
+            file: {...fileObj}
+        }, () => {
+            this.checkFieldValidity('file', fileObj.value);
         });
     }
 
     onSubmit = event => {
         let isFormValid = true;
         event.preventDefault();
+        /** validate all fields */
         for (let key in this.state) {
             if (this.state[key]) {
                 const isCheckValid = this.checkFieldValidity(key, this.state[key].value);
@@ -100,6 +110,7 @@ class BookForm extends Component {
                 console.log(this.state[key].value);
             }
         }
+
         if (isFormValid) {
             this.props.submitBook(this.getBookFormData());
             this.setState({ isFormValid: true });
@@ -115,8 +126,8 @@ class BookForm extends Component {
         formData.append("description", this.state.description.value);
         formData.append("author", this.state.author.value);
         formData.append("price", this.state.price.value);
-        formData.append("imageUrl", this.state.imageUrl.value);
-        formData.append("file", this.state.file);
+        formData.append("imageUrl", this.state.file.value);
+        formData.append("file", this.state.file.file);
         return formData;
     }
 
@@ -165,8 +176,14 @@ class BookForm extends Component {
                         </div>
                         <div className="col-sm-5">
                             <div className="form-group">
-                                <input type="file" className="form-control-file" name="file"
-                                    onChange={this.onFileChange} />
+                                <input
+                                    type="file"
+                                    className={classnames('form-control-file', {
+                                        'is-invalid': !this.state.file.isValid
+                                    })}
+                                    name="file"
+                                    onChange={this.onFileChange}
+                                />
                             </div>
                             <div>
                                 {this.displayImageLink

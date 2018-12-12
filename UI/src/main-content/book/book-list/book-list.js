@@ -21,7 +21,6 @@ class BookList extends Component {
     }
 
     onDeleteBook = () => {
-        debugger;
         this.props.onDeleteBook(this.state.bookToDelete).then(() => {
             this.setState({
                 isDeleteBook: false,
