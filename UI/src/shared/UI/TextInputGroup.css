@@ -5,3 +5,8 @@
     text-align: left;
     font-weight: 700;
 }
+
+.is-invalid{
+    border: 1px solid red;
+    background-color: rgb(247, 144, 144);
+}

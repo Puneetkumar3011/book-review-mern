@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 
-import { updateBook, getBook } from "../../../store/book/actions";
+import { updateBook, getBook, fetchBook } from "../../../store/book/actions";
 import BookForm from "../book-form/book-form";
 
 class BookEdit extends Component {
@@ -40,7 +40,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onGetBook: (id) => dispatch(getBook(id)),
+        onGetBook: (id) => dispatch(fetchBook(id)),
         onBookEdit: (book, id) => dispatch(updateBook(book, id))
     };
 }

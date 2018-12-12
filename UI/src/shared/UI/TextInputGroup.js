@@ -11,7 +11,7 @@ const TextInputGroup = ({
   placeholder,
   type,
   onChange,
-  error
+  isValid
 }) => {
   return (
     <div className="form-group">
@@ -20,13 +20,13 @@ const TextInputGroup = ({
         type={type}
         name={name}
         className={classnames('form-control form-control-lg', {
-          'is-invalid': error
+          'is-invalid': !isValid
         })}
         placeholder={placeholder}
         value={value}
         onChange={onChange}
       />
-      {error && <div className="invalid-feedback">{error}</div>}
+      {!isValid && <div className="invalid-feedback">{!isValid}</div>}
     </div>
   );
 };
