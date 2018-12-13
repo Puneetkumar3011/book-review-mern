@@ -53,6 +53,9 @@ class BookForm extends Component {
                 },
                 isValid: true
             },
+            favorite: {
+                value: (props.book ? props.book.favorite : false)
+            },
             isFormValid: true
         };
         if (this.state.file.value) {
@@ -127,6 +130,7 @@ class BookForm extends Component {
         formData.append("author", this.state.author.value);
         formData.append("price", this.state.price.value);
         formData.append("imageUrl", this.state.file.value);
+        formData.append("favorite", this.state.favorite.value);
         formData.append("file", this.state.file.file);
         return formData;
     }
@@ -193,7 +197,7 @@ class BookForm extends Component {
                                 }
                             </div>
                             <div className="btn-div">
-                                <input type="submit" value={this.state.id ? 'Update Book' : 'Add Book'} className="btn btn-primary" />
+                                <input type="submit" value={this.state.id.value ? 'Update Book' : 'Add Book'} className="btn btn-primary" />
                             </div>
                         </div>
                     </div>

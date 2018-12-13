@@ -2,8 +2,9 @@ import React, { Component } from "react";
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Modal, Button } from 'react-bootstrap';
+import classnames from 'classnames';
 
-import { getBooks, deleteBook } from "../../../store/book/actions";
+import { getBooks, deleteBook, favoriteBook } from "../../../store/book/actions";
 import { API_BASE_URL } from '../../../shared/app.constants';
 
 import "./book-list.css";
@@ -20,13 +21,18 @@ class BookList extends Component {
         this.props.getBooks();
     }
 
-    onDeleteBook = () => {
+    deleteBookHandller = () => {
         this.props.onDeleteBook(this.state.bookToDelete).then(() => {
             this.setState({
                 isDeleteBook: false,
                 bookToDelete: null
             });
         });
+    }
+
+    favotiteBookHandler =(book) => {
+        book.favorite = true;
+        this.props.onFavoriteBook(book);
     }
 
     onOpenPopup = (book) => {
@@ -81,6 +87,12 @@ class BookList extends Component {
                             <a onClick={() => this.onOpenPopup(book)} className="btn btn-default link-display">
                                 <i className="fa fa-trash-o"></i>
                             </a>
+                            <a onClick={() => this.favotiteBookHandler(book)} className="btn btn-default link-display">
+                                <i 
+                                className="fa"
+                                className={classnames('fa', { 'fa-star': book.favorite }, { 'fa-star-o': !book.favorite })}
+                                ></i>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -98,7 +110,7 @@ class BookList extends Component {
                     </Modal.Body>
                     <Modal.Footer>
                         <Button onClick={() => this.onClosePopup()}>Close</Button>
-                        <Button onClick={() => this.onDeleteBook()} bsStyle="primary">Delete</Button>
+                        <Button onClick={() => this.deleteBookHandller()} bsStyle="primary">Delete</Button>
                     </Modal.Footer>
                 </Modal>
             </div>
@@ -133,6 +145,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         onDeleteBook: (book) => dispatch(deleteBook(book)),
+        onFavoriteBook: (id) => dispatch(favoriteBook(id)),
         getBooks: () => dispatch(getBooks())
     };
 }

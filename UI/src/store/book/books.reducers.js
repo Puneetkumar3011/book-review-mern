@@ -1,6 +1,6 @@
 import {
     FETCH_BOOKS, GET_BOOKS, FETCH_BOOK, GET_BOOK,
-    CREATE_BOOK, UPDATE_BOOK, DELETE_BOOK
+    CREATE_BOOK, UPDATE_BOOK, DELETE_BOOK, FAVORITE_BOOK
 } from './actions';
 
 const initialState = { books: [], bookInContext: null }
@@ -55,6 +55,17 @@ export default (state = initialState, action) => {
             let newBooks =  [...state.books];
             newBooks = newBooks.filter((book) => {
                 return book.id !== action.payload;
+            });
+            return {
+                ...state,
+                books: newBooks
+            };
+        }
+
+        case FAVORITE_BOOK: {
+            let newBooks =  [...state.books];
+            newBooks = newBooks.map((book) => {
+                return (book.id === action.payload.id) ? Object.assign({}, book, action.payload) : book;
             });
             return {
                 ...state,

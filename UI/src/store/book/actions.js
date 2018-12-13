@@ -7,6 +7,7 @@ export const FETCH_BOOK = 'FETCH_BOOK';
 export const GET_BOOK = 'GET_BOOK';
 export const CREATE_BOOK = 'CREATE_BOOK';
 export const UPDATE_BOOK = 'UPDATE_BOOK';
+export const FAVORITE_BOOK = 'FAVORITE_BOOK';
 export const DELETE_BOOK = 'DELETE_BOOK';
 
 export const fetchBooks = () => async dispatch => {
@@ -64,5 +65,14 @@ export const deleteBook = (book) => async dispatch => {
         type: DELETE_BOOK,
         payload: response.data.bookId
     });
-
 }
+
+export const favoriteBook = (book) => async dispatch => {
+    const apiUrl = `${API_BOOK_BASE_URL}/book/favorite/${book.id}`;
+    const response = await axios.put(apiUrl, book);
+    dispatch({
+        type: FAVORITE_BOOK,
+        payload: response.data.book
+    });
+}
+
