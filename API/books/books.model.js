@@ -30,6 +30,9 @@ const bookSchema = new Schema(
             type: Number,
             required: true
         },
+        favorite: {
+            type: Boolean
+        },
         creator: {
             type: Object,
             required: String

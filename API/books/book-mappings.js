@@ -20,5 +20,6 @@ fromDbToModelBook = (dbBook) => {
     bookModel.imageUrl = dbBook.imageUrl;
     bookModel.author = dbBook.author;
     bookModel.price = dbBook.price;
+    bookModel.favorite = dbBook.favorite;
     return bookModel;
 }
