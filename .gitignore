@@ -59,3 +59,9 @@ typings/
 
 # next.js build output
 .next
+
+# all book images
+*.jpg\n*.jpeg\n*.png\n*.gif\n
+
+# image folder
+/API/public/
