@@ -5,6 +5,7 @@ import { Modal, Button } from 'react-bootstrap';
 import classnames from 'classnames';
 
 import { getBooks, deleteBook, favoriteBook } from "../../../store/book/actions";
+import { fetchFavoriteBooks } from "../../../store/favorite-book/actions";
 import { API_BASE_URL } from '../../../shared/app.constants';
 
 import "./book-list.css";
@@ -30,9 +31,11 @@ class BookList extends Component {
         });
     }
 
-    favotiteBookHandler =(book) => {
-        book.favorite = true;
-        this.props.onFavoriteBook(book);
+    favotiteBookHandler = (book) => {
+        book.favorite = !book.favorite;
+        this.props.onFavoriteBook(book).then(() => {
+            this.props.onFetchFavoriteBooks();
+        });
     }
 
     onOpenPopup = (book) => {
@@ -88,9 +91,9 @@ class BookList extends Component {
                                 <i className="fa fa-trash-o"></i>
                             </a>
                             <a onClick={() => this.favotiteBookHandler(book)} className="btn btn-default link-display">
-                                <i 
-                                className="fa"
-                                className={classnames('fa', { 'fa-star': book.favorite }, { 'fa-star-o': !book.favorite })}
+                                <i
+                                    className="fa"
+                                    className={classnames('fa', { 'fa-star': book.favorite }, { 'fa-star-o': !book.favorite })}
                                 ></i>
                             </a>
                         </div>
@@ -146,6 +149,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         onDeleteBook: (book) => dispatch(deleteBook(book)),
         onFavoriteBook: (id) => dispatch(favoriteBook(id)),
+        onFetchFavoriteBooks: () => dispatch(fetchFavoriteBooks()),
         getBooks: () => dispatch(getBooks())
     };
 }

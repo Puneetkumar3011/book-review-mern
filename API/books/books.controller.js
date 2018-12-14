@@ -152,30 +152,6 @@ exports.deleteBook = (req, res, next) => {
         });
 };
 
-exports.favoriteBook = (req, res, next) => {
-    let bookId= req.params.bookId;
-    Book.findById(bookId)
-        .then(book => {
-            if (!book) {
-                const error = new Error('Could not find book.');
-                error.statusCode = 404;
-                throw error;
-            }
-            book.favorite = req.body.favorite;
-            return book.save();
-        })
-        .then(result => {
-            res.status(200).json({ message: 'Book favorite updated!', book: mappings.mapDbToBook(result) });
-        })
-        .catch(err => {
-            if (!err.statusCode) {
-                err.statusCode = 500;
-            }
-            next(err);
-        });
-
-}
-
 const clearImage = filePath => {
     filePath = path.join(__dirname, '..', filePath);
     fs.unlink(filePath, err => console.log(err));

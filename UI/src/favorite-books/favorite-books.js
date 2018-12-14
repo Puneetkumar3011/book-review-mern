@@ -1,14 +1,58 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+
+import { fetchFavoriteBooks } from "../store/favorite-book/actions";
 import "./favorite-books.css";
 
 class RightPanel extends Component {
-    render(){
-        return(
+    componentWillMount() {
+        this.props.getFavoriteBooks();
+    }
+
+    render() {
+        if (!this.props.favBooks) {
+            return (
+                <div>No Book to display</div>
+            );
+        }
+
+        return (
             <div>
-                favorite Books
+                {this.props.favBooks.map((book) => {
+                    return (
+                        <div key={book.id} className="favorite-book">
+                            <strong>
+                                {book.title}
+                            </strong>
+                            <div>
+                                <span>Price:&nbsp;</span>
+                                <span className="display-price">{book.price}</span>
+                            </div>
+                            <div>
+                                <span>Author:&nbsp;</span>
+                                <span>{book.author}</span>
+                            </div>
+                            <div>
+                                {book.description}
+                            </div>
+                        </div>
+                    );
+                })}
             </div>
         )
     }
 }
 
-export default RightPanel;
+const mapStateToProps = (state) => {
+    return {
+        favBooks: state.favorite.books,
+    }
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        getFavoriteBooks: () => dispatch(fetchFavoriteBooks())
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(RightPanel);
