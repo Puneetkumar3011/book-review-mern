@@ -34,8 +34,8 @@ const bookSchema = new Schema(
             type: Boolean
         },
         creator: {
-            type: Object,
-            required: String
+            type: Schema.Types.ObjectId,
+            ref: 'User'
         }
     },
     { timestamps: true }
