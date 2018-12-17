@@ -1,0 +1,13 @@
+.book-detail__img{
+    max-height: 205px;
+    width: 205px;
+    padding-top: 5px;
+}
+
+.left-column{
+    text-align: right;
+}
+
+.right-column{
+    text-align: left;
+}

@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { fetchFavoriteBooks } from "../store/favorite-book/actions";
 import "./favorite-books.css";
 
-class RightPanel extends Component {
+class FavoriteBooks extends Component {
     componentWillMount() {
         this.props.getFavoriteBooks();
     }
@@ -55,4 +55,4 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(RightPanel);
+export default connect(mapStateToProps, mapDispatchToProps)(FavoriteBooks);

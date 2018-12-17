@@ -68,8 +68,11 @@ class BookForm extends Component {
         const value = e.target.value;
         let newObj = { ...this.state[name] };
         newObj.value = value;
-        this.setState({ [name]: { ...newObj } },
-            () => { this.checkFieldValidity(name, value) });
+        this.setState({ [name]: newObj });
+    }
+
+    handleBlur = e => {
+        this.checkFieldValidity(e.target.name, e.target.value);
     }
 
     checkFieldValidity(name, value) {
@@ -86,7 +89,6 @@ class BookForm extends Component {
                 isValid
             }
         }));
-
         return isValid;
     }
 
@@ -102,7 +104,7 @@ class BookForm extends Component {
         });
     }
 
-    onSubmit = event => {
+    submitHandller = event => {
         let isFormValid = true;
         event.preventDefault();
         /** validate all fields */
@@ -138,7 +140,7 @@ class BookForm extends Component {
     render() {
         return (
             <div className="book-form-main">
-                <form encType="multipart/form-data" onSubmit={this.onSubmit}>
+                <form encType="multipart/form-data" onSubmit={this.submitHandller}>
                     <div className="error-label">
                         {!this.state.isFormValid ? <div>Fix Validation errors</div> : <div>&nbsp;</div>}
                     </div>
@@ -150,6 +152,7 @@ class BookForm extends Component {
                                 placeholder="Enter Title"
                                 value={this.state.title.value}
                                 onChange={this.onChange}
+                                onBlur={this.handleBlur}
                                 isValid={this.state.title.isValid}
                             />
                             <TextInputGroup
@@ -158,6 +161,7 @@ class BookForm extends Component {
                                 placeholder="Enter Description"
                                 value={this.state.description.value}
                                 onChange={this.onChange}
+                                onBlur={this.handleBlur}
                                 isValid={this.state.description.isValid}
                             />
                             <TextInputGroup
@@ -166,6 +170,7 @@ class BookForm extends Component {
                                 placeholder="Enter Author"
                                 value={this.state.author.value}
                                 onChange={this.onChange}
+                                onBlur={this.handleBlur}
                                 isValid={this.state.author.isValid}
                             />
                             <TextInputGroup
@@ -175,6 +180,7 @@ class BookForm extends Component {
                                 placeholder="Enter Price"
                                 value={this.state.price.value}
                                 onChange={this.onChange}
+                                onBlur={this.handleBlur}
                                 isValid={this.state.price.isValid}
                             />
                         </div>
@@ -207,4 +213,4 @@ class BookForm extends Component {
     }
 }
 
-export default BookForm
+export default BookForm;

@@ -11,6 +11,7 @@ const TextInputGroup = ({
   placeholder,
   type,
   onChange,
+  onBlur,
   isValid
 }) => {
   return (
@@ -25,6 +26,7 @@ const TextInputGroup = ({
         placeholder={placeholder}
         value={value}
         onChange={onChange}
+        onBlur={onBlur}
       />
       {!isValid && <div className="invalid-feedback">{!isValid}</div>}
     </div>

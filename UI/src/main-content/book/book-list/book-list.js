@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { Modal, Button } from 'react-bootstrap';
 import classnames from 'classnames';
 
-import { getBooks, deleteBook, favoriteBook } from "../../../store/book/actions";
+import { fetchBooks, deleteBook, favoriteBook, updateBook } from "../../../store/book/actions";
 import { fetchFavoriteBooks } from "../../../store/favorite-book/actions";
 import { API_BASE_URL } from '../../../shared/app.constants';
 
@@ -38,6 +38,11 @@ class BookList extends Component {
         });
     }
 
+    showBookDetail = (book) => {
+        this.props.onUpdateBook(book, book.id);
+        this.props.history.push(`/book/detail/${book.id}`);
+    }
+
     onOpenPopup = (book) => {
         this.setState({
             isDeleteBook: true,
@@ -61,7 +66,7 @@ class BookList extends Component {
         return this.props.books.map((book) => {
             return (
                 <div key={book.id} className="row book">
-                    <div className="col-md-2 img-container">
+                    <div className="col-md-2 img-container" onClick={() => this.showBookDetail(book)}>
                         <img className="book-image" alt="" src={API_BASE_URL + '/' + book.imageUrl}></img>
                     </div>
                     <div className="col-md-6">
@@ -150,7 +155,8 @@ const mapDispatchToProps = (dispatch) => {
         onDeleteBook: (book) => dispatch(deleteBook(book)),
         onFavoriteBook: (id) => dispatch(favoriteBook(id)),
         onFetchFavoriteBooks: () => dispatch(fetchFavoriteBooks()),
-        getBooks: () => dispatch(getBooks())
+        getBooks: () => dispatch(fetchBooks()),
+        onUpdateBook: (book, id) => dispatch(updateBook(book, id))
     };
 }
 

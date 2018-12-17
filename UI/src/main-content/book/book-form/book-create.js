@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 
 import { createNewBook } from "../../../store/book/actions";
-import BookForm from "../book-form/book-form";
+import BookForm from "./book-form";
 
 class BookInput extends Component {
 
