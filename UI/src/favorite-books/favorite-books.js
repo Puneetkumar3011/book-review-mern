@@ -5,9 +5,9 @@ import { fetchFavoriteBooks } from "../store/favorite-book/actions";
 import "./favorite-books.css";
 
 class FavoriteBooks extends Component {
-    componentWillMount() {
-        this.props.getFavoriteBooks();
-    }
+    // componentWillMount() {
+    //     this.props.getFavoriteBooks();
+    // }
 
     render() {
         if (!this.props.favBooks) {
