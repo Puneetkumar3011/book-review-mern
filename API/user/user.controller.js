@@ -27,7 +27,10 @@ exports.signup = (req, res, next) => {
       return user.save();
     })
     .then(result => {
-      res.status(201).json({ message: 'User created!', user});
+      let loggedInUser = {};
+      loggedInUser.email = user.email;
+      loggedInUser.id = user._id.toString();
+      res.status(201).json({ message: 'User created!', user: loggedInUser});
     })
     .catch(err => {
       if (!err.statusCode) {
@@ -40,7 +43,7 @@ exports.signup = (req, res, next) => {
 exports.login = (req, res, next) => {
   const email = req.body.email;
   const password = req.body.password;
-  let loadedUser;
+  let loggedInUser = {};
   User.findOne({ email: email })
     .then(user => {
       if (!user) {
@@ -48,7 +51,8 @@ exports.login = (req, res, next) => {
         error.statusCode = 401;
         throw error;
       }
-      loadedUser = user;
+      loggedInUser.email = user.email;
+      loggedInUser.id = user._id.toString();
       return bcrypt.compare(password, user.password);
     })
     .then(isEqual => {
@@ -59,13 +63,13 @@ exports.login = (req, res, next) => {
       }
       const token = jwt.sign(
         {
-          email: loadedUser.email,
-          userId: loadedUser._id.toString()
+          email: loggedInUser.email,
+          userId: loggedInUser.id
         },
         appConstants.loginSecreteKey,
-        { expiresIn: '1h' }
+        { expiresIn: '5h' }
       );
-      res.status(200).json({ token: token, user: loadedUser });
+      res.status(200).json({ token: token, user: loggedInUser });
     })
     .catch(err => {
       if (!err.statusCode) {

@@ -12,15 +12,22 @@ class App extends Component {
       <div className="App">
         <AppHeader></AppHeader>
         <div className="row no-gutters">
-          <div className="col-md-2 recent-books">
-            <RecentBooks></RecentBooks>
+          
+          {/* left panel */}
+          <div className="col-md-2 left-section">
+            <div className="favorites-books">
+              <FavoriteBooks></FavoriteBooks>
+            </div>
+            <div className="recent-books">
+              <RecentBooks></RecentBooks>
+            </div>
           </div>
-          <div className="col-md-8">
+          
+          {/* Main content */}
+          <div className="col-md-10">
             <MainContent></MainContent>
           </div>
-          <div className="col-md-2 favorites-books">
-            <FavoriteBooks></FavoriteBooks>
-          </div>
+
         </div>
       </div>
     );

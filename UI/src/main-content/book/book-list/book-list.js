@@ -134,11 +134,6 @@ class BookList extends Component {
                 <div>
                     {this.deleteConfirmation()}
                 </div>
-                <div className="text-right">
-                    <Link to="/book/add-book" className="btn btn-primary">
-                        <i className="fa fa-plus">&nbsp;New Book</i>
-                    </Link>
-                </div>
             </div>
         );
     }

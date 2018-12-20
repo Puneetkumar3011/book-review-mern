@@ -7,26 +7,18 @@
   height: 40vmin;
 }
 
-.App-header {
-  background-color: #282c34;
-  height: 3rem;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  font-size: 18px;
-  color: white;
+.left-section{
+  height: calc(100vh -2rem);
+  background-color: rgb(238, 234, 234);
 }
 
 .recent-books{
-  border-right: 1px solid grey;
-  min-height: calc(100vh - 2rem);
-  background-color: #84d7ee;
+  min-height: 50vh;
 }
 
 .favorites-books{
-  border-right: 1px solid grey;
-  min-height: calc(100vh - 2rem);
-  background-color: beige;
+  border-bottom: 1px solid grey;
+  min-height: 50vh;
 }
 
 .modal-container {

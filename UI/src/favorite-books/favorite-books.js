@@ -10,14 +10,20 @@ class FavoriteBooks extends Component {
     // }
 
     render() {
+        const header = <div className="fav-book-header">Favorite Books</div>;
+
         if (!this.props.favBooks) {
             return (
-                <div>No Book to display</div>
+                <div>
+                    {header}
+                    <div>No Book to display</div>
+                </div>
             );
         }
 
         return (
             <div>
+                {header}
                 {this.props.favBooks.map((book) => {
                     return (
                         <div key={book.id} className="favorite-book">
@@ -45,6 +51,7 @@ class FavoriteBooks extends Component {
 
 const mapStateToProps = (state) => {
     return {
+        user: state.user,
         favBooks: state.favorite.books,
     }
 };

@@ -129,7 +129,9 @@ class AuthFormComponent extends Component {
                 />
                 <div className="form-group">
                     <div className="col-sm-offset-10 col-sm-2">
-                        <button type="submit" className="btn btn-primary">Login</button>
+                        <button type="submit" className="btn btn-primary">
+                            {this.props.mode === 'signup' ? 'Sign Up' : 'Log In'}
+                        </button>
                     </div>
                 </div>
             </form>

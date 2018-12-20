@@ -7,20 +7,25 @@ class AppHeader extends Component {
         return (
             <div>
                 <div className="row App-header">
-                    <header className="col-5 header-text">
-                        <span> Book Management </span>
-                    </header>
-                    <ul className="col-7">
-                        <li>
-                            <Link to="/book/list"> Book List </Link>
-                        </li>
-                        <li> 
-                            <Link to="/book/add-book"> Add Book </Link>  
-                        </li>
-                        <li> 
-                            <Link to="/help"> Help </Link>
-                        </li>
-                    </ul>
+                    <div className="col-sm-5">
+                        <header className="header-text">
+                            <span> Book Management </span>
+                        </header>
+                    </div>
+                    <div className="col-sm-7 header-menu">
+                        <ul>
+                            <li>
+                                <Link to="/book"> Book </Link>
+                            </li>
+                            <li>
+                                <Link to="/user"> User </Link>
+                            </li>
+                            <li>
+                                <Link to="/help"> Help </Link>
+                            </li>
+                        </ul>
+                    </div>
+
                 </div>
             </div>
         )

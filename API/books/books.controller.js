@@ -58,6 +58,7 @@ exports.getBook = (req, res, next) => {
 
 exports.createBook = (req, res, next) => {
     const errors = validationResult(req);
+    const userHeader = req.get('user');
     if (!errors.isEmpty()) {
         const error = new Error('Validation failed, entered data is incorrect.');
         error.statusCode = 422;
@@ -70,7 +71,7 @@ exports.createBook = (req, res, next) => {
         author: req.body.author,
         price: req.body.price,
         favorite: req.body.favorite,
-        creator: { name: 'Puneet' }
+        creator: { userId: userHeader }
     });
     book.save()
         .then(result => {

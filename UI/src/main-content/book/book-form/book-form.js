@@ -202,8 +202,9 @@ class BookForm extends Component {
                                     : null
                                 }
                             </div>
-                            <div className="btn-div">
-                                <input type="submit" value={this.state.id.value ? 'Update Book' : 'Add Book'} className="btn btn-primary" />
+                            <div className="btn-div-book-form">
+                                <input className="btn-submit btn btn-primary" type="submit" 
+                                value={this.state.id.value ? 'Update Book' : 'Add Book'} />
                             </div>
                         </div>
                     </div>

@@ -1,0 +1,10 @@
+.btn-div{
+    text-align: right;
+    border-bottom: 1px solid gray;
+    margin-right: 1rem;
+}
+
+.book-btn{
+    margin: 1rem;
+    width: 10rem;
+}

@@ -24,7 +24,7 @@ export const getBooks = () => {
 };
 
 export const fetchBook = (id) => async dispatch => {
-    const response = await axiosInstance.get('/book');
+    const response = await axiosInstance.get(`/book/${id}`);
     dispatch({
         type: FETCH_BOOK,
         payload: response.data.book

@@ -9,7 +9,7 @@ class BookEdit extends Component {
     componentDidMount() {
         this.bookId = this.props.match.params.id;
         if (this.bookId) {
-            this.props.onGetBook(this.bookId);
+            this.props.onFetchBook(this.bookId);
         }
     }
 
@@ -40,7 +40,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onGetBook: (id) => dispatch(fetchBook(id)),
+        onFetchBook: (id) => dispatch(fetchBook(id)),
         onBookEdit: (book, id) => dispatch(updateBook(book, id))
     };
 }

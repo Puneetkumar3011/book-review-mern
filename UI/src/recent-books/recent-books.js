@@ -4,7 +4,7 @@ import "./recent-books.css";
 class RecentBooks extends Component{
     render(){
         return(
-            <div>
+            <div className="recent-books-header">
                 Recent Books
             </div>
         )

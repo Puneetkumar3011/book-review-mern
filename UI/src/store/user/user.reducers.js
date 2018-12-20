@@ -1,8 +1,11 @@
 import { LOGIN_USER, LOGOUT_USER, SIGN_UP_USER } from "./action";
+
+const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
+
 const initialState = {
-    name: '',
-    email: '',
-    token: ''
+    id: (loggedInUser && loggedInUser.user) ? loggedInUser.user.id : '',
+    email: (loggedInUser && loggedInUser.user) ? loggedInUser.user.email : '',
+    token: loggedInUser ? loggedInUser.token : ''
 };
 
 export default (state = initialState, action) => {
@@ -10,7 +13,7 @@ export default (state = initialState, action) => {
         case LOGIN_USER:{
             return {
                 ...state,
-                name: action.payload.user.name,
+                id: action.payload.user.id,
                 email: action.payload.user.email,
                 token: action.payload.token
             };
@@ -18,14 +21,14 @@ export default (state = initialState, action) => {
         case SIGN_UP_USER:{
             return {
                 ...state,
-                name: action.payload.name,
+                id: action.payload.id,
                 email: action.payload.email
             };
         }
         case LOGOUT_USER:{
             return {
                 ...state,
-                name: '',
+                id: '',
                 email: '',
                 token: ''
             };
